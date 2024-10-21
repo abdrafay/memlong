@@ -1,0 +1,9 @@
+peft
+sentence_transformers
+FlagEmbedding
+huggingface-hub 
+tiktoken
+blobfile
+datasets
+tf-keras
+faiss-cpu
