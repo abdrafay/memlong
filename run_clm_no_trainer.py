@@ -312,17 +312,19 @@ def main():
         lm_datasets.set_format("torch")
     elif args.dataset_name is not None:
         # Downloading and loading a dataset from the hub.
-        raw_datasets = load_dataset(args.dataset_name, args.dataset_config_name)
+        raw_datasets = load_dataset(args.dataset_name, args.dataset_config_name, trust_remote_code=True)
         if "validation" not in raw_datasets.keys():
             raw_datasets["validation"] = load_dataset(
                 args.dataset_name,
                 args.dataset_config_name,
                 split=f"train[:{args.validation_split_percentage}%]",
+                trust_remote_code=True
             )
             raw_datasets["train"] = load_dataset(
                 args.dataset_name,
                 args.dataset_config_name,
                 split=f"train[{args.validation_split_percentage}%:]",
+                trust_remote_code=True
             )
     else:
         data_files = {}
@@ -335,7 +337,7 @@ def main():
         if extension == "txt":
             extension = "text"
             dataset_args["keep_linebreaks"] = not args.no_keep_linebreaks
-        raw_datasets = load_dataset(extension, data_files=data_files, **dataset_args)
+        raw_datasets = load_dataset(extension, data_files=data_files, **dataset_args, trust_remote_code=True)
         # If no validation data is there, validation_split_percentage will be used to divide the dataset.
         if "validation" not in raw_datasets.keys():
             raw_datasets["validation"] = load_dataset(
@@ -343,12 +345,14 @@ def main():
                 data_files=data_files,
                 split=f"train[:{args.validation_split_percentage}%]",
                 **dataset_args,
+                trust_remote_code=True
             )
             raw_datasets["train"] = load_dataset(
                 extension,
                 data_files=data_files,
                 split=f"train[{args.validation_split_percentage}%:]",
                 **dataset_args,
+                trust_remote_code=True
             )
 
     # See more about loading any type of standard or custom dataset (from files, python dict, pandas DataFrame, etc) at

@@ -18,9 +18,9 @@ def main():
     for dataset_path_or_name in dataset_path_or_name_list:
         dataset_name = dataset_path_or_name.split('/')[-1]
         if dataset_name == "wikitext":
-            dataset = load_dataset(dataset_path_or_name,"wikitext-103-raw-v1",split=split,num_proc=args.num_proc,cache_dir=".")
+            dataset = load_dataset(dataset_path_or_name,"wikitext-103-raw-v1",split=split,num_proc=args.num_proc,cache_dir=".", trust_remote_code=True)
         else:
-            dataset = load_dataset(dataset_path_or_name, split)
+            dataset = load_dataset(dataset_path_or_name, split, trust_remote_code=True)
         #save_to_disk(dataset, f"{args.output_dir}/{data}_{split}")
 
 

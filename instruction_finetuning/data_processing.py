@@ -558,7 +558,7 @@ class SingleTuneDataset(Dataset):
         if self.data_args.data_path is None:
             raise ValueError("No dataset (data_path) specified")
         raw_dataset = load_dataset(
-            self.data_args.data_path, revision=self.data_args.data_revision, split=self.data_args.dataset_split
+            self.data_args.data_path, revision=self.data_args.data_revision, split=self.data_args.dataset_split, trust_remote_code=True
         )
 
         raw_dataset = filter_dataset(dataset=raw_dataset, data_args=data_args, tokenizer=tokenizer)
